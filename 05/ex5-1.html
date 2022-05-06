@@ -15,18 +15,20 @@
         }
 
         async function doSelect() {
-            var search = document.getElementById('tf2').value;
-            var sql = `select * from Tweets where tweet like "%${search}%" `;
+            var sql = 'select * from Tweets';
             console.log(sql);
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
-            html = html + '<ul>';
+            html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.id + ', ' + object.name + ', ' + object.tweet + ', ' + object.time + '</li>';
+                html = html + '<tr>';
+                html = html + '<td>' + object.id + '</td>';
+                html = html + '<td>' + object.name + '</td>';
+                html = html + '</tr>';
             }
-            html = html + '</ul>';
+            html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
     </script>
@@ -35,8 +37,7 @@
 
 <body>
     <h1>Tweets</h1>
-    <input id="tf2" type="textfield">
-    <button onclick="button1Pressed()">検索</button>
+    <button onclick="button1Pressed()">テーブル作成</button>
     <hr>
     <p id="result">xxxx</p>
 </body>

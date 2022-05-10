@@ -12,6 +12,7 @@
     <script>
         function button1Pressed() {
             doInsert();
+            doSelect();
         }
 
         async function doInsert() {
@@ -23,7 +24,23 @@
             console.log(objects);
 
             document.getElementById('tf2').value = '';
-            document.getElementById('result').innerHTML = "tweetしました";
+        }
+        async function doSelect() {
+            var show_sql = 'select * from Tweets order by time desc limit 20';
+            var objects = await osql.connect(show_sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<tr>';
+                html = html + '<td>' + object.id + '</td>';
+                html = html + '<td>' + object.name + '</td>';
+                html = html + '<td>' + object.tweet + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('result').innerHTML = html;
         }
     </script>
 

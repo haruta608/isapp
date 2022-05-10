@@ -10,12 +10,18 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
+        var x;
         $().ready(function () {
-            button1Pressed();
+            x = 0;
+            setInterval(doCount, 2000);
         });
+
+        async function doCount() {
+            x++;
+            doSelect();
+        };
         async function button1Pressed() {
             doInsert();
-            doSelect();
         }
 
         async function doInsert() {

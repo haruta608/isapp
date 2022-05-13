@@ -10,6 +10,14 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
+        $(document).ready(function () {
+            execSelect();
+        });
+
+        async function execSelect() {
+            var name = sessionStorage.getItem('username');
+            document.getElementById('welcome').innerHTML = `ようこそ${name}さん`;
+        }
     </script>
 
 </head>

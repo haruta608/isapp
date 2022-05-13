@@ -20,8 +20,7 @@
         }
         async function buttonChange() {
             var name = sessionStorage.getItem('userid');
-            var setParam = `?userid=${name}`;
-            location.href = 'update.html' + setParam;
+            location.href = `update.html?userid=${name}`;
         }
     </script>
 

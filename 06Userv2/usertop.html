@@ -18,13 +18,19 @@
             var name = sessionStorage.getItem('username');
             document.getElementById('welcome').innerHTML = `ようこそ${name}さん`;
         }
+        async function buttonChange() {
+            var name = sessionStorage.getItem('userid');
+            var setParam = `?userid=${name}`;
+            location.href = 'update.html' + setParam;
+        }
     </script>
 
 </head>
 
 <body>
     <h1>ユーザトップ</h1>
-    <p id="welcome">ようこそxxさん</p>
+    <p id="welcome"></p>
+    <button onclick="buttonChange()">変更</button>
     <hr>
 
 </body>

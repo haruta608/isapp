@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../settings.js"></script>
+    <script type="text/javascript" src="../osql.js"></script>
+
+    <script>
+        var x;
+        $().ready(function () {
+            x = 0;
+            setInterval(doCount, 2000);
+            var name = sessionStorage.getItem('userid');
+            var html = "";
+            html = html + `名前: <input id="tf1" value="${name}" type="textfield">`;
+            document.getElementById('tweet_top').innerHTML = html;
+        });
+
+        async function doCount() {
+            x++;
+            doSelect();
+        };
+        async function button1Pressed() {
+            doInsert();
+        }
+
+        async function doInsert() {
+            var userid = document.getElementById('tf1').value;
+            var tweet = document.getElementById('tf2').value;
+
+            var sql = `insert into Tweets (name, tweet, time) values("${userid}", "${tweet}", now());`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+
+            document.getElementById('tf2').value = '';
+        }
+        async function doSelect() {
+            var show_sql = 'select * from Tweets order by time desc limit 20';
+            var objects = await osql.connect(show_sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<tr>';
+                html = html + '<td>' + object.id + '</td>';
+                html = html + '<td>' + object.name + '</td>';
+                html = html + '<td>' + object.tweet + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('result').innerHTML = html;
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Tweets</h1>
+    <br>
+    <p id="tweet_top"></p>
+    tweet:<input id="tf2" type="textfield">
+    <button onclick="button1Pressed()">tweet</button>
+    <br>
+    <p id="result"></p>
+</body>
+
+</html>

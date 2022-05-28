@@ -26,18 +26,22 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+                html = html + '<td>' + `<button onclick="buttonDelete(${object.id})">削除</button>` + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
-        async function buttonDelete() {
-            var deleteid = document.getElementById('selectid').value;
-            var sql = `delete from Users where id = "${deleteid}"`;
+        async function buttonDelete(deleteid) {
+            // var deleteid = document.getElementById('selectid').value;
+            var ans = window.confirm('本当にいいんですね？');
+            if (ans == true) {
+            }
+            var sql = `select * from Users where id = "${deleteid}"`;
             var objects = await osql.connect(sql);
-            // console.log(deleteid);
-            // console.log(objects);
+            console.log(deleteid);
+            console.log(objects);
             execSelect();
         }
     </script>
@@ -46,10 +50,6 @@
 
 <body>
     <h1>Users</h1>
-    <hr>
-    ID:<input type="text" id="selectid">
-    <button onclick="buttonDelete()">削除</button>
-    <hr>
     <p id="result">xxxx</p>
 </body>
 

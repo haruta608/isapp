@@ -26,7 +26,7 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
-                html = html + '<td>' + `<button onclick="buttonDelete(${object.id})">削除</button>` + '</td>';
+                html = html + '<td>' + `<button onclick="buttonDelete('${object.id}')">削除</button>` + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
@@ -38,7 +38,7 @@
             var ans = window.confirm('本当にいいんですね？');
             if (ans == true) {
             }
-            var sql = `select * from Users where id = "${deleteid}"`;
+            var sql = `delete from Users where id = "${deleteid}"`;
             var objects = await osql.connect(sql);
             console.log(deleteid);
             console.log(objects);
